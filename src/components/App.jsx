@@ -2,7 +2,6 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { Component } from 'react';
 import { Searchbar } from './Searchbar/Searchbar';
-// import { Searchbar } from './Searchbar/Searchbar';
 
 // import PropTypes from 'prop-types';
 
@@ -32,13 +31,15 @@ export class App extends Component {
     this.setState({ articles: response.data.hits });
   }
 
-  // componentDidUpdate()
+  handleSubmit = eve => {
+    eve.preventDefault();
+  };
 
   render() {
     const { articles } = this.state;
     return (
       <>
-        <Searchbar />
+        <Searchbar onSubmit={this.handleSubmit} />
         {articles.length > 0 ? <ArticleList articles={articles} /> : null}
       </>
     );
@@ -46,8 +47,8 @@ export class App extends Component {
 }
 
 const Gallery = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-gap: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
   padding-bottom: 24px;
 `;
