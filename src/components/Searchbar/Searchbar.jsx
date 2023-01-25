@@ -1,12 +1,17 @@
-import axios from 'axios';
-console.log('object :>> ');
+import { Search } from './Searchbar.styles';
 
-const API_KEY = '32386885-8dbf1bc36075d10a6eaf5580b';
+export const Searchbar = ({ onSubmit }) => {
+  return (
+    <>
+      <Search>
+        <form>
+          <button type="submit">
+            <span>Search</span>
+          </button>
 
-axios.defaults.baseURL = 'https://pixabay.com/api';
-
-export const Searchbar = () => {
-  return axios(
-    `/?q=cat&page=1&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=12`
-  ).then(data => );
+          <input type="text" placeholder="Search images and photos" />
+        </form>
+      </Search>
+    </>
+  );
 };
