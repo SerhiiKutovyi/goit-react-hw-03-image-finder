@@ -1,3 +1,5 @@
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import styled from 'styled-components';
 import { Component } from 'react';
@@ -21,26 +23,28 @@ const ArticleList = ({ articles }) => (
 export class App extends Component {
   state = {
     articles: [],
+    search: '',
   };
 
-  async componentDidMount() {
+  async componentDidUpdate(prevProps, prevState) {
     const response = await axios(
-      `?q=cat&page=1&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=12`
+      `?q=${this.state.search}&page=1&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=12`
     );
 
-    this.setState({ articles: response.data.hits });
+    return this.setState({ articles: response.data.hits });
   }
 
-  handleSubmit = eve => {
-    eve.preventDefault();
+  searchbarSubmit = data => {
+    this.setState({ search: data });
   };
 
   render() {
     const { articles } = this.state;
     return (
       <>
-        <Searchbar onSubmit={this.handleSubmit} />
+        <Searchbar onSubmit={this.searchbarSubmit} />
         {articles.length > 0 ? <ArticleList articles={articles} /> : null}
+        <ToastContainer autoClose={2000} />
       </>
     );
   }

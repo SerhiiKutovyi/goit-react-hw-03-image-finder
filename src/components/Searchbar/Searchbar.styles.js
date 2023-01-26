@@ -33,7 +33,7 @@ export const Search = styled.header`
     width: 48px;
     height: 48px;
     border: 0;
-    background-image: url('https://image.flaticon.com/icons/svg/149/149852.svg');
+    /* background-image: url('https://image.flaticon.com/icons/svg/149/149852.svg'); */
     background-size: 40%;
     background-repeat: no-repeat;
     background-position: center;
@@ -41,10 +41,6 @@ export const Search = styled.header`
     transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
     outline: none;
-  }
-
-  button:hover {
-    opacity: 1;
   }
 
   span {
@@ -60,6 +56,7 @@ export const Search = styled.header`
   }
 
   input {
+    margin-left: 10px;
     display: inline-block;
     width: 100%;
     font: inherit;

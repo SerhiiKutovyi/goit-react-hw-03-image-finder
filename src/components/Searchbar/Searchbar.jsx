@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import React, { Component } from 'react';
 import { Search } from './Searchbar.styles';
 
@@ -6,16 +7,28 @@ export class Searchbar extends Component {
     inputValue: '',
   };
 
-  componentWillUnmount() {}
   handelChange = eve => {
     this.setState({ inputValue: eve.target.value });
   };
+
+  handleSubmit = eve => {
+    eve.preventDefault();
+    if (this.state.inputValue.trim() === '') {
+      toast.error('Fill in the search bar!');
+      return;
+    }
+    this.props.onSubmit(this.state.inputValue);
+  };
+
+  componentWillUnmount() {
+    this.setState({ inputValue: '' });
+  }
 
   render() {
     return (
       <>
         <Search>
-          <form onSabmit={() => handleSubmit}>
+          <form onSubmit={this.handleSubmit}>
             <button type="submit">
               <span>Search</span>
             </button>
