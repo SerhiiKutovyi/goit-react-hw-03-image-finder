@@ -3,6 +3,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Component } from 'react';
 import { Searchbar } from './Searchbar/Searchbar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
+import { ImageGalleryItem } from './ImageGalleryItem/ImageGalleryItem';
 
 // import axios from 'axios';
 // import PropTypes from 'prop-types';
@@ -37,6 +38,7 @@ export class App extends Component {
       <>
         <Searchbar onSubmit={this.searchBarSubmit} />
         {articles.length > 0 ? <ImageGallery articles={articles} /> : null}
+        <ImageGalleryItem img={articles} />
         <ToastContainer autoClose={2000} />
       </>
     );
