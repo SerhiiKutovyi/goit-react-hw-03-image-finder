@@ -18,11 +18,8 @@ export class Searchbar extends Component {
       return;
     }
     this.props.onSubmit(this.state.inputValue);
-  };
-
-  componentWillUnmount() {
     this.setState({ inputValue: '' });
-  }
+  };
 
   render() {
     return (
