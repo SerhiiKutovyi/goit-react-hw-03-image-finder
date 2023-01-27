@@ -17,16 +17,20 @@ export class App extends Component {
   state = {
     articles: [],
     search: '',
-    peg,
+    page: 1,
   };
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.articles === this.state.articles) {
+  componentDidUpdate(_, prevState) {
+    if (prevState.search !== this.state.search) {
       fetch(
         `${BASE_URL}?q=${this.state.search}&page=1&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=12`
       )
         .then(res => res.json())
-        .then(cards => this.setState({ articles: cards.hits }))
+        .then(cards =>
+          this.setState(prevState => ({
+            articles: [...prevState.articles, ...cards.hits],
+          }))
+        )
         .catch(error => console.log(error));
     }
   }
@@ -35,9 +39,9 @@ export class App extends Component {
     this.setState({ search: data });
   };
 
-  clickLoadMore = event => {
-    console.log(event);
-  };
+  // clickLoadMore = event => {
+  //   this.setState({ page + 1});
+  // };
 
   render() {
     const { articles } = this.state;
