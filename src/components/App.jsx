@@ -4,6 +4,7 @@ import { Component } from 'react';
 import { Searchbar } from './Searchbar/Searchbar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { ImageGalleryItem } from './ImageGalleryItem/ImageGalleryItem';
+import { Button } from './Button/Button';
 
 // import axios from 'axios';
 // import PropTypes from 'prop-types';
@@ -16,6 +17,7 @@ export class App extends Component {
   state = {
     articles: [],
     search: '',
+    peg,
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -24,12 +26,17 @@ export class App extends Component {
         `${BASE_URL}?q=${this.state.search}&page=1&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=12`
       )
         .then(res => res.json())
-        .then(cards => this.setState({ articles: cards.hits }));
+        .then(cards => this.setState({ articles: cards.hits }))
+        .catch(error => console.log(error));
     }
   }
 
   searchBarSubmit = data => {
     this.setState({ search: data });
+  };
+
+  clickLoadMore = event => {
+    console.log(event);
   };
 
   render() {
@@ -39,6 +46,7 @@ export class App extends Component {
         <Searchbar onSubmit={this.searchBarSubmit} />
         {articles.length > 0 ? <ImageGallery articles={articles} /> : null}
         <ImageGalleryItem img={articles} />
+        <Button clickLoad={this.clickLoadMore} />
         <ToastContainer autoClose={2000} />
       </>
     );

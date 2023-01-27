@@ -1,11 +1,13 @@
-import {im}
+import { GalleryItem } from './ImageGalleryItem.styles';
 
-export const ImageGalleryItem = ({ largeImageURL, tegs }) => {
+export const ImageGalleryItem = ({ img }) => {
   return (
     <>
-      <galleryItem>
-        <img src={largeImageURL} alt={tegs} />
-      </galleryItem>
+      {img.map(({ largeImageURL, tegs, id }) => (
+        <GalleryItem key={id}>
+          <img src={largeImageURL} alt={tegs} />
+        </GalleryItem>
+      ))}
     </>
   );
 };
