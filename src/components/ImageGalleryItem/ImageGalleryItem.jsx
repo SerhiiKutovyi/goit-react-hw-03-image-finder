@@ -1,13 +1,11 @@
 import { GalleryItem } from './ImageGalleryItem.styles';
 
-export const ImageGalleryItem = ({ img }) => {
+export const ImageGalleryItem = ({ webformatURL, id, tegs }) => {
   return (
-    <>
-      {img.map(({ largeImageURL, tegs, id }) => (
-        <GalleryItem key={id}>
-          <img src={largeImageURL} alt={tegs} />
-        </GalleryItem>
-      ))}
-    </>
+    <GalleryItem>
+      <li key={id}>
+        <img src={webformatURL} alt={tegs}></img>
+      </li>
+    </GalleryItem>
   );
 };
