@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Btn } from './Button.stylles';
 
 export const Button = ({ clickLoad }) => {
@@ -8,4 +9,8 @@ export const Button = ({ clickLoad }) => {
       </Btn>
     </>
   );
+};
+
+Button.propTypes = {
+  clickLoad: PropTypes.func.isRequired,
 };

@@ -9,7 +9,6 @@ import { Modal } from './Modal/Modal';
 import { Loader } from './Loader/Loader';
 
 // import axios from 'axios';
-// import PropTypes from 'prop-types';
 // axios.defaults.baseURL = 'https://pixabay.com/api/';
 
 const API_KEY = '32386885-8dbf1bc36075d10a6eaf5580b';

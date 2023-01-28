@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
 import { Gallery } from './ImageGallery.styles';
 
@@ -19,4 +20,9 @@ export const ImageGallery = ({ articles, modalBigImg }) => {
       </Gallery>
     </>
   );
+};
+
+ImageGallery.propTypes = {
+  articles: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  modalBigImg: PropTypes.func.isRequired,
 };
