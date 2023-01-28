@@ -1,11 +1,13 @@
 import { GalleryItem } from './ImageGalleryItem.styles';
 
-export const ImageGalleryItem = ({ webformatURL, id, tegs }) => {
+export const ImageGalleryItem = ({ src, alt, largeImageURL, modalBigImg }) => {
   return (
-    <GalleryItem>
-      <li key={id}>
-        <img src={webformatURL} alt={tegs}></img>
-      </li>
+    <GalleryItem
+      onClick={() => {
+        modalBigImg(largeImageURL);
+      }}
+    >
+      <img src={src} alt={alt}></img>
     </GalleryItem>
   );
 };

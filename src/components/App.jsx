@@ -3,7 +3,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Component } from 'react';
 import { Searchbar } from './Searchbar/Searchbar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
-import { ImageGalleryItem } from './ImageGalleryItem/ImageGalleryItem';
 import { Button } from './Button/Button';
 import { Modal } from './Modal/Modal';
 
@@ -20,12 +19,12 @@ export class App extends Component {
     search: '',
     page: 1,
     loading: false,
-    showModal: false,
+    image: '',
   };
 
   toggleModal = () => {
-    this.setState(({ showModal }) => ({
-      showModal: !showModal,
+    this.setState(({ image }) => ({
+      image: !image,
     }));
   };
 
@@ -58,14 +57,13 @@ export class App extends Component {
   // };
 
   render() {
-    const { articles, showModal } = this.state;
+    const { articles, image } = this.state;
     return (
       <>
         <Searchbar onSubmit={this.searchBarSubmit} />
         {articles.length > 0 ? <ImageGallery articles={articles} /> : null}
-        <ImageGalleryItem img={articles} />
         <Button clickLoad={this.clickLoadMore} />
-        {showModal && <Modal />}
+        {image && <Modal image={this.toggleModal} />}
         <ToastContainer autoClose={2000} />
       </>
     );
