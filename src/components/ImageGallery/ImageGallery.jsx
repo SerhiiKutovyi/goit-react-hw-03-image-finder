@@ -1,8 +1,7 @@
 import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
 import { Gallery } from './ImageGallery.styles';
 
-export const ImageGallery = ({ articles }) => {
-  console.log(articles);
+export const ImageGallery = ({ articles, modalBigImg }) => {
   return (
     <>
       <Gallery>
@@ -12,6 +11,7 @@ export const ImageGallery = ({ articles }) => {
               src={webformatURL}
               alt={tegs}
               key={id}
+              modalBigImg={modalBigImg}
               largeImageURL={largeImageURL}
             />
           );

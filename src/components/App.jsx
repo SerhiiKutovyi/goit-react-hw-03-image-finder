@@ -22,12 +22,6 @@ export class App extends Component {
     image: '',
   };
 
-  toggleModal = () => {
-    this.setState(({ image }) => ({
-      image: !image,
-    }));
-  };
-
   componentDidUpdate(_, prevState) {
     if (prevState.search !== this.state.search) {
       this.setState({ loading: true, articles: [] });
@@ -56,14 +50,28 @@ export class App extends Component {
   //   this.setState({ page + 1});
   // };
 
+  toggleModal = () => {
+    this.setState(({ image }) => ({
+      image: !image,
+    }));
+  };
+
+  showModalImg = largeImageURL => {
+    console.log('APP', largeImageURL);
+    this.setState({ image: largeImageURL });
+  };
+
   render() {
     const { articles, image } = this.state;
+
     return (
       <>
         <Searchbar onSubmit={this.searchBarSubmit} />
-        {articles.length > 0 ? <ImageGallery articles={articles} /> : null}
+        {articles.length > 0 ? (
+          <ImageGallery articles={articles} modalBigImg={this.showModalImg} />
+        ) : null}
         <Button clickLoad={this.clickLoadMore} />
-        {image && <Modal image={this.toggleModal} />}
+        {image && <Modal toggle={this.toggleModal} src={this.image} />}
         <ToastContainer autoClose={2000} />
       </>
     );
