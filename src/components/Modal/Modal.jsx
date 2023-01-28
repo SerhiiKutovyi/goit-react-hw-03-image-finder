@@ -1,17 +1,11 @@
-import { Component } from 'react';
 import { Overlay } from './Modal.styles';
 
-export class Modal extends Component {
-  render() {
-    const { image } = this.props;
-    console.log('MODAl', image);
-
-    return (
-      <Overlay>
-        <div>
-          <img src={image} alt="alt" />
-        </div>
-      </Overlay>
-    );
-  }
-}
+export const Modal = ({ src, alt, close }) => {
+  return (
+    <Overlay onClick={close}>
+      <div>
+        <img src={src.largeImageURL} alt={alt} />
+      </div>
+    </Overlay>
+  );
+};

@@ -1,3 +1,4 @@
+import { FcSearch } from 'react-icons/fc';
 import { toast } from 'react-toastify';
 import React, { Component } from 'react';
 import { Search } from './Searchbar.styles';
@@ -19,6 +20,7 @@ export class Searchbar extends Component {
     }
     this.props.onSubmit(this.state.inputValue);
     this.setState({ inputValue: '' });
+    eve.target.reset();
   };
 
   render() {
@@ -27,7 +29,7 @@ export class Searchbar extends Component {
         <Search>
           <form onSubmit={this.handleSubmit}>
             <button type="submit">
-              <span>Search</span>
+              <span>{<FcSearch />}</span>
             </button>
 
             <input
