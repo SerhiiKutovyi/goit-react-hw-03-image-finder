@@ -20,8 +20,8 @@ export class Searchbar extends Component {
       return;
     }
     this.props.onSubmitHandler(this.state.inputValue);
+
     this.setState({ inputValue: '' });
-    eve.target.reset();
   };
 
   render() {
