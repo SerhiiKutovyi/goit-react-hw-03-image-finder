@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { FcSearch } from 'react-icons/fc';
 import { toast } from 'react-toastify';
 import React, { Component } from 'react';
@@ -18,7 +19,7 @@ export class Searchbar extends Component {
       toast.error('Fill in the search bar!');
       return;
     }
-    this.props.onSubmit(this.state.inputValue);
+    this.props.onSubmitHandler(this.state.inputValue);
     this.setState({ inputValue: '' });
     eve.target.reset();
   };
@@ -44,3 +45,7 @@ export class Searchbar extends Component {
     );
   }
 }
+
+Searchbar.propTypes = {
+  onSubmitHandler: PropTypes.func.isRequired,
+};

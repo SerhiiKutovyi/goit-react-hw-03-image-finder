@@ -1,4 +1,5 @@
 import { ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styled from 'styled-components';
 import { Component } from 'react';
@@ -23,6 +24,14 @@ export class App extends Component {
     image: '',
   };
 
+  componentDidMount() {
+    window.addEventListener('keydown', eve => {
+      if (eve.code === 'Escape') {
+        this.setState({ image: '' });
+      }
+    });
+  }
+
   componentDidUpdate(_, prevState) {
     const { search, page } = this.state;
     if (prevState.search !== search || prevState.page !== page) {
@@ -31,11 +40,14 @@ export class App extends Component {
         `${BASE_URL}?q=${search}&page=${page}&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=12`
       )
         .then(res => res.json())
-        .then(cards =>
+        .then(cards => {
+          if (cards.hits.length < 1) {
+            toast.error('Enter a valid search term!');
+          }
           this.setState(prevState => ({
             articles: [...prevState.articles, ...cards.hits],
-          }))
-        )
+          }));
+        })
         .catch(error => console.log(error))
         .finally(() => {
           this.setState({ loading: false });
@@ -43,29 +55,24 @@ export class App extends Component {
     }
   }
 
-  searchBarSubmit = data => {
-    this.setState({ search: data, page: 1, articles: [] });
-  };
-
-  clickLoadMore = eve => {
-    console.log(eve);
-    this.setState(prevState => ({ page: prevState.page + 1 }));
-  };
-
-  toggleModal = () => {
-    this.setState(({ image }) => ({
-      image: !image,
-    }));
-  };
-
-  showModalImg = largeImageURL => {
-    this.setState({ image: { largeImageURL } });
-
+  componentWillUnmount() {
     window.addEventListener('keydown', eve => {
       if (eve.code === 'Escape') {
         this.setState({ image: '' });
       }
     });
+  }
+
+  searchBarSubmit = data => {
+    this.setState({ search: data, page: 1, articles: [] });
+  };
+
+  clickLoadMore = () => {
+    this.setState(prevState => ({ page: prevState.page + 1 }));
+  };
+
+  showModalImg = largeImageURL => {
+    this.setState({ image: { largeImageURL } });
   };
 
   closeModalImg = eve => {
@@ -79,7 +86,8 @@ export class App extends Component {
 
     return (
       <AppStyles>
-        <Searchbar onSubmit={this.searchBarSubmit} />
+        <Searchbar onSubmitHandler={this.searchBarSubmit} />
+        {articles.length <= 0 && <h1>Enter text</h1>}
         {this.state.loading && <Loader />}
         {articles.length > 0 ? (
           <ImageGallery articles={articles} modalBigImg={this.showModalImg} />
